@@ -323,11 +323,97 @@ TreeNode* Traverse::constructFromInPost(vector<int>& inorder, vector<int>& posto
     return root;
 }
 
-
-string serialize(TreeNode* root) {
-    
+void _serialize(TreeNode* root, string& s){
+    if(root == nullptr){
+        s += "null,";
+        return;
+    }
+    s += to_string(root->val) + ",";
+    _serialize(root->left, s);
+    _serialize(root->right, s);
+}
+string Traverse::serialize(TreeNode* root) {
+    string s;
+    _serialize(root, s);
+    return s;
+}
+string Traverse::serialize_layer(TreeNode* root) {
+    string s;
+    deque<TreeNode*> q;
+    if(root != nullptr){
+        q.push_back(root);
+    }
+    while(!q.empty()){
+        TreeNode* node = q.front();
+        q.pop_front();
+        if(node == nullptr){
+            s += "null,";
+        }
+        else{
+            s += (to_string(node->val) + ",");
+            q.push_back(node->left);
+            q.push_back(node->right);
+        }
+    }
+    return s;
 }
 
-TreeNode* deserialize(string data) {
-    
+TreeNode* _deserialize(queue<string>& q){
+    string s = q.front();
+    q.pop();
+    if(s == "null"){
+        return nullptr;
+    }
+    TreeNode* node = new TreeNode(stoi(s));
+    node->left = _deserialize(q);
+    node->right = _deserialize(q);
+    return node;
 }
+TreeNode* Traverse::deserialize(string data) {
+    string s;
+    stringstream ss(data);
+    queue<string> q;
+    while(getline(ss, s, ',')){
+        q.push(s);
+    }
+    TreeNode* root = _deserialize(q);
+    return root;
+}
+TreeNode* Traverse::deserialize_layer(string data){
+    string s;
+    stringstream ss(data);
+    queue<string> q;
+    while(getline(ss, s, ',')){
+        q.push(s);
+    }
+
+    string s1 = q.front();
+    if(s1 == "null"){
+        return nullptr;
+    }
+    TreeNode* root = new TreeNode(stoi(s1));
+    q.pop();
+    
+    queue<TreeNode*> q1;
+    q1.push(root);
+    while(!q1.empty()){
+        TreeNode* cur = q1.front();
+        q1.pop();
+
+        string tmp1 = q.front();
+        q.pop();
+        if(tmp1 != "null"){
+            cur->left = new TreeNode(stoi(tmp1));
+            q1.push(cur->left);
+        }
+        string tmp2 = q.front();
+        q.pop();
+        if(tmp2 != "null"){
+            cur->right = new TreeNode(stoi(tmp2));
+            q1.push(cur->right);
+        }
+    }
+    return root;
+}
+
+bool isValidSerialization(string preorder);

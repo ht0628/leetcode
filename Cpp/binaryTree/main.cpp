@@ -72,6 +72,16 @@ int main()
     for(int i = 0; i < vec2_12.size(); i++){
         printContrainer(vec2_12[i]);
     }
+    cout << "序列化" << endl;
+    string s2_1 = traverse->serialize(root2);
+    cout << s2_1 << endl;
+    TreeNode* root2_1 = traverse->deserialize(s2_1);
+    tree->printTree(root2_1);
+    string s2_2 = traverse->serialize_layer(root2);
+    cout << s2_2 << endl;
+    TreeNode* root2_2 = traverse->deserialize_layer(s2_2);
+    tree->printTree(root2_2);
+
 
     cout << "\nChapter2:Binary search tree----" << endl;
     cout << "Type1: Valid" << endl;

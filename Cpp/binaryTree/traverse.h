@@ -37,7 +37,9 @@ class Traverse
 
         /* 297. 二叉树的序列化与反序列化*/
         string serialize(TreeNode* root);
+        string serialize_layer(TreeNode* root);
         TreeNode* deserialize(string data);
+        TreeNode* deserialize_layer(string data);
         /* 331. 验证二叉树的前序序列化 */
         bool isValidSerialization(string preorder);
         /* 449. 序列化和反序列化二叉搜索树 */
