@@ -82,6 +82,10 @@ int main()
     TreeNode* root2_2 = traverse->deserialize_layer(s2_2);
     tree->printTree(root2_2);
 
+    string s2_3 = "9,3,4,#,#,1,#,#,2,#,6,#,#";
+    bool flag2_3 = traverse->isValidSerialization(s2_3);
+    cout << flag2_3 << endl;
+
 
     cout << "\nChapter2:Binary search tree----" << endl;
     cout << "Type1: Valid" << endl;

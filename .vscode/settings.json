@@ -9,6 +9,11 @@
         "string": "cpp",
         "ios": "cpp",
         "xiosbase": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "deque": "cpp",
+        "list": "cpp",
+        "iosfwd": "cpp",
+        "algorithm": "cpp",
+        "unordered_set": "cpp"
     }
 }

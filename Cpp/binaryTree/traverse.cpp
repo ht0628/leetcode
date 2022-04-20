@@ -416,4 +416,67 @@ TreeNode* Traverse::deserialize_layer(string data){
     return root;
 }
 
-bool isValidSerialization(string preorder);
+bool Traverse::isValidSerialization(string preorder){
+    vector<string> st;
+    vector<string> vec = split(preorder, ',');
+    int n;
+    for(int i = 0; i < vec.size(); i++){
+        st.push_back(vec[i]);
+        n = st.size();
+        while(n >= 3 && st[n-1] == "#" && st[n-2] == "#" && st[n-3] != "#"){
+            st.pop_back();
+            st.pop_back();
+            st.pop_back();
+            st.push_back("#");
+            n = st.size();
+        }
+    }
+
+    return st.size() == 1 && st[0] == "#";
+}
+
+void _serializeII(TreeNode* root, string& data){
+    if(root == nullptr){
+        return;
+    }
+    data += (to_string(root->val) + ',');
+    _serializeII(root->left, data);
+    _serializeII(root->right, data);
+}
+string Traverse::serializeII(TreeNode* root){
+    string s = "";
+    _serializeII(root, s);
+    return s;
+}
+
+
+TreeNode* _deserialize(vector<int> preorder, vector<int> inorder){
+    if(preorder.empty()){
+        return nullptr;
+    }
+    int idx = 0;
+    while(inorder[idx] != preorder[0]){
+        idx++;
+    }
+    TreeNode* root = new TreeNode(preorder[0]);
+    vector<int> L_pre(preorder.begin() + 1, preorder.begin() + 1 + idx);
+    vector<int> R_pre(preorder.begin() + 1 + idx, preorder.end());
+    vector<int> L_in(inorder.begin(), inorder.begin() + idx);
+    vector<int> R_in(inorder.begin() + idx + 1, inorder.end());
+    
+    root->left = _deserialize(L_pre, L_in);
+    root->right = _deserialize(R_pre, R_in);
+
+    return root;
+}
+TreeNode* Traverse::deserializeII(string data){
+    vector<string> s = split(data, ',');
+    vector<int> preorder;
+    for(int i = 0; i < s.size(); i++){
+        preorder.push_back(stoi(s[i]));
+    }
+    vector<int> inorder(preorder);
+    sort(inorder.begin(), inorder.end());
+    TreeNode* root = _deserialize(preorder, inorder);
+    return root;
+}

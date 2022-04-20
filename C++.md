@@ -24,6 +24,8 @@
     void sort (RandomAccessIterator first, RandomAccessIterator last);
  	std::vector<int> myvector{ 32, 71, 12, 45, 26, 80, 53, 33 };
 	std::sort(myvector.begin(), myvector.begin() + 4);
+6.查找函数
+    std::find(v.begin(), v.end(), key) != v.end()
 ```
 
 
@@ -224,7 +226,7 @@ vector<int> list(4);	//默认为0
 vector<int> list(4,1)	//默认为1
 
 //4.构造矩阵
-vector<vector<int>> matrix(3,vetor<int>(4))			//高频：构造二维矩阵
+vector<vector<int>> matrix(3,vector<int>(4))			//高频：构造二维矩阵
 vector<int>value1(3)								//高频：构造一维矩阵
    
 
