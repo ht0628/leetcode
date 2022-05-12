@@ -10,6 +10,7 @@ int Sequence::fib(int n){
     }
     return dp[n];
 }
+/* 只与前两个数有关-可以压缩 */
 int Sequence::fib1(int n){
     if(n == 0 || n == 1){
         return n;
